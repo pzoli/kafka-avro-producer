@@ -14,7 +14,7 @@ public class MessageProducer {
 
 	public void sendMessage(User msg) {
     	//kafkaTemplate.send("test",0, Instant.now().toEpochMilli(),"0", msg);
-		kafkaTemplate.send("test",msg);
+		kafkaTemplate.send("avro-test",msg);
 	}
 
 }
