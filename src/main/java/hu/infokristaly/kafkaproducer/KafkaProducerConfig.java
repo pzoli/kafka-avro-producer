@@ -33,6 +33,9 @@ public class KafkaProducerConfig {
     @Value("${spring.kafka.properties.security.protocol}")
     private String security_protocol;
 
+    @Value("${spring.kafka.producer.acks}")
+    private String acks;
+
     @Bean
     public ProducerFactory<String, User> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
@@ -51,6 +54,8 @@ public class KafkaProducerConfig {
             "org.apache.kafka.clients.producer.internals.DefaultPartitioner");
         configProps.put(
           SaslConfigs.SASL_MECHANISM,sasl_mechanism);
+        configProps.put(
+                ProducerConfig.ACKS_CONFIG,acks);
         configProps.put(
           CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, security_protocol);
         configProps.put(
