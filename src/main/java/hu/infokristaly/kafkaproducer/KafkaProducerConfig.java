@@ -24,6 +24,15 @@ public class KafkaProducerConfig {
     @Value("${spring.kafka.properties.sasl.jaas.config}")
     private String KAFKA_JAAS_CONFIG;
 
+    @Value("${avro.schema_registry.url}")
+    private String avro_schema_registry_url ;
+
+    @Value("${spring.kafka.properties.sasl.mechanism}")
+    private String sasl_mechanism;
+
+    @Value("${spring.kafka.properties.security.protocol}")
+    private String security_protocol;
+
     @Bean
     public ProducerFactory<String, User> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
@@ -41,15 +50,14 @@ public class KafkaProducerConfig {
             ProducerConfig.PARTITIONER_CLASS_CONFIG,
             "org.apache.kafka.clients.producer.internals.DefaultPartitioner");
         configProps.put(
-          SaslConfigs.SASL_MECHANISM,"PLAIN");
+          SaslConfigs.SASL_MECHANISM,sasl_mechanism);
         configProps.put(
-          CommonClientConfigs.SECURITY_PROTOCOL_CONFIG,
-          "SASL_PLAINTEXT");
+          CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, security_protocol);
         configProps.put(
           SaslConfigs.SASL_JAAS_CONFIG,
           KAFKA_JAAS_CONFIG);
         configProps.put(
-                "schema.registry.url", "http://schema-registry-headless.kafka.svc.cluster.local:8081");
+                "schema.registry.url", avro_schema_registry_url);
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 
