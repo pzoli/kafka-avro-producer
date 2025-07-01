@@ -13,16 +13,16 @@ import org.springframework.test.context.ActiveProfiles;
 class KafkaproducerApplicationTests {
 
     @Autowired
-    private UserMapping userMapping;
+    private UserMapper userMapper;
 
     @Test
 	void contextLoads() {
-        assert userMapping != null;
+        assert userMapper != null;
         UserDTO userDTO = new UserDTO();
         userDTO.setName("Teszt Elek");
         userDTO.setFavoriteColor("piros");
         userDTO.setFavoriteNumber(13);
-        User user = userMapping.from(userDTO);
+        User user = userMapper.from(userDTO);
         assert user.getName().equals(userDTO.getName()) : "The name doesn't equal";
         assert user.getFavoriteColor().equals(userDTO.getFavoriteColor()) : "The favourite color doesn't match";
         assert user.getFavoriteNumber() == userDTO.getFavoriteNumber() : "The favourite number doesn't match";

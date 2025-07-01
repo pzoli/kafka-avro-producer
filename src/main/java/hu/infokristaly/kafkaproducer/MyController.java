@@ -12,11 +12,11 @@ public class MyController {
     @Autowired
     private MessageProducer messageProducer;
     @Autowired
-    private UserMapping userMapping;
+    private UserMapper userMapper;
 
     @PostMapping("/send")
     public String sendMessage(@RequestBody UserDTO userDTO) {
-        User user = userMapping.from(userDTO);
+        User user = userMapper.from(userDTO);
         messageProducer.sendMessage(user);
         return "ok";
     }    

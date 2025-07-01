@@ -5,7 +5,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = {})
-public interface UserMapping {
+public interface UserMapper {
     @Mapping(target = "name", source = "name")
     @Mapping(target = "favoriteNumber", source = "favoriteNumber")
     @Mapping(target = "favoriteColor", source = "favoriteColor")
