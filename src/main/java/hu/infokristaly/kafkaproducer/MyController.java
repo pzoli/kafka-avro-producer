@@ -11,13 +11,12 @@ public class MyController {
     
     @Autowired
     private MessageProducer messageProducer;
-    
+    @Autowired
+    private UserMapper userMapper;
+
     @PostMapping("/send")
     public String sendMessage(@RequestBody UserDTO userDTO) {
-        User user = new User();
-        user.setName(userDTO.getName());
-        user.setFavoriteColor(userDTO.getFavorite_color());
-        user.setFavoriteNumber(userDTO.getFavorite_number());
+        User user = userMapper.from(userDTO);
         messageProducer.sendMessage(user);
         return "ok";
     }    
